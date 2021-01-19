@@ -10,16 +10,16 @@
 		B5F3A4F79B3F0DDCAC248A23 /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC73CFA7CA5C9208CD2DA881 /* Pods_ChatApp.framework */; };
 		B89B7F0E25B4AB43008524EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F0D25B4AB43008524EF /* AppDelegate.swift */; };
 		B89B7F1025B4AB43008524EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F0F25B4AB43008524EF /* SceneDelegate.swift */; };
-		B89B7F1225B4AB43008524EF /* ChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F1125B4AB43008524EF /* ChannelVC.swift */; };
+		B89B7F1225B4AB43008524EF /* ChatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F1125B4AB43008524EF /* ChatsVC.swift */; };
 		B89B7F1525B4AB43008524EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B89B7F1325B4AB43008524EF /* Main.storyboard */; };
 		B89B7F1725B4AB44008524EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B89B7F1625B4AB44008524EF /* Assets.xcassets */; };
 		B89B7F1A25B4AB44008524EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B89B7F1825B4AB44008524EF /* LaunchScreen.storyboard */; };
 		B89B7F8E25B50001008524EF /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F8D25B50001008524EF /* ChatUser.swift */; };
 		B89B7F9225B50388008524EF /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7F9125B50388008524EF /* Authentication.swift */; };
 		B89B7FCA25B50B05008524EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B89B7FC925B50B05008524EF /* GoogleService-Info.plist */; };
-		B89B7FCD25B514F1008524EF /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FCC25B514F1008524EF /* Channel.swift */; };
-		B89B7FF225B52961008524EF /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FF125B52961008524EF /* ChannelCell.swift */; };
-		B89B7FF525B52AA2008524EF /* ChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FF425B52AA2008524EF /* ChannelViewModel.swift */; };
+		B89B7FCD25B514F1008524EF /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FCC25B514F1008524EF /* Chat.swift */; };
+		B89B7FF225B52961008524EF /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FF125B52961008524EF /* ChatCell.swift */; };
+		B89B7FF525B52AA2008524EF /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B7FF425B52AA2008524EF /* ChatsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		B89B7F0A25B4AB43008524EF /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B89B7F0D25B4AB43008524EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B89B7F0F25B4AB43008524EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B89B7F1125B4AB43008524EF /* ChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVC.swift; sourceTree = "<group>"; };
+		B89B7F1125B4AB43008524EF /* ChatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsVC.swift; sourceTree = "<group>"; };
 		B89B7F1425B4AB43008524EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B89B7F1625B4AB44008524EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B89B7F1925B4AB44008524EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,9 +36,9 @@
 		B89B7F8D25B50001008524EF /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		B89B7F9125B50388008524EF /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		B89B7FC925B50B05008524EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B89B7FCC25B514F1008524EF /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
-		B89B7FF125B52961008524EF /* ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
-		B89B7FF425B52AA2008524EF /* ChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewModel.swift; sourceTree = "<group>"; };
+		B89B7FCC25B514F1008524EF /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		B89B7FF125B52961008524EF /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		B89B7FF425B52AA2008524EF /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		BEFBD4AF2ECEFC959F8EA831 /* Pods-JayChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JayChatApp.release.xcconfig"; path = "Target Support Files/Pods-JayChatApp/Pods-JayChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		C06AF5684A60D572CDDB74FB /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DC73CFA7CA5C9208CD2DA881 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,8 +89,8 @@
 		B89B7F0C25B4AB43008524EF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B89B7F1125B4AB43008524EF /* ChannelVC.swift */,
-				B89B7FF425B52AA2008524EF /* ChannelViewModel.swift */,
+				B89B7F1125B4AB43008524EF /* ChatsVC.swift */,
+				B89B7FF425B52AA2008524EF /* ChatsViewModel.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -113,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				B89B7F8D25B50001008524EF /* ChatUser.swift */,
-				B89B7FCC25B514F1008524EF /* Channel.swift */,
+				B89B7FCC25B514F1008524EF /* Chat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -129,7 +129,7 @@
 		B89B7FEA25B5290B008524EF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B89B7FF125B52961008524EF /* ChannelCell.swift */,
+				B89B7FF125B52961008524EF /* ChatCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -261,12 +261,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B89B7F8E25B50001008524EF /* ChatUser.swift in Sources */,
-				B89B7FCD25B514F1008524EF /* Channel.swift in Sources */,
-				B89B7F1225B4AB43008524EF /* ChannelVC.swift in Sources */,
+				B89B7FCD25B514F1008524EF /* Chat.swift in Sources */,
+				B89B7F1225B4AB43008524EF /* ChatsVC.swift in Sources */,
 				B89B7F0E25B4AB43008524EF /* AppDelegate.swift in Sources */,
-				B89B7FF225B52961008524EF /* ChannelCell.swift in Sources */,
+				B89B7FF225B52961008524EF /* ChatCell.swift in Sources */,
 				B89B7F9225B50388008524EF /* Authentication.swift in Sources */,
-				B89B7FF525B52AA2008524EF /* ChannelViewModel.swift in Sources */,
+				B89B7FF525B52AA2008524EF /* ChatsViewModel.swift in Sources */,
 				B89B7F1025B4AB43008524EF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

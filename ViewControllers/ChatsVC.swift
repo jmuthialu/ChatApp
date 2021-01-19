@@ -1,5 +1,5 @@
 //
-//  ChannelVC.swift
+//  ChatsVC.swift
 //  ChatApp
 //
 //  Created by Jay Muthialu on 1/17/21.
@@ -10,15 +10,15 @@ import Combine
 import FirebaseAuth
 import FirebaseFirestore
 
-class ChannelVC: UIViewController {
+class ChatsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var chatUserBarButton: UIBarButtonItem!
         
-    var viewModel = ChannelViewModel()
+    var viewModel = ChatsViewModel()
     var cancellables = Set<AnyCancellable>()
     var channelAlertController: UIAlertController?
-    private var channels = [Channel]()
+    private var chats = [Chat]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,8 @@ class ChannelVC: UIViewController {
         
     }
     
-    @IBAction func addChannel(_ sender: Any) {
-        let alert = UIAlertController(title: "Channel", message: "Create Channel", preferredStyle: UIAlertController.Style.alert)
+    @IBAction func addChat(_ sender: Any) {
+        let alert = UIAlertController(title: "Chat", message: "Create a Chat", preferredStyle: UIAlertController.Style.alert)
         channelAlertController = alert
         
         alert.addTextField { (textField) in
@@ -49,13 +49,13 @@ class ChannelVC: UIViewController {
                                 action: #selector(self.textFieldChanged),
                                 for: .editingChanged)
             textField.enablesReturnKeyAutomatically = true
-            textField.placeholder = "Enter Channel Name"
+            textField.placeholder = "Enter Chat Name"
         }
         
         let createAction = UIAlertAction(title: "Create",
                                       style: .default,
                                       handler: { [weak self] _ in
-                                        self?.viewModel.createChannel(alert: alert)
+                                        self?.viewModel.createChat(alert: alert)
                                       })
         alert.addAction(createAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -71,21 +71,21 @@ class ChannelVC: UIViewController {
 
 }
 
-extension ChannelVC: UITableViewDelegate {
+extension ChatsVC: UITableViewDelegate {
     
 }
 
-extension ChannelVC: UITableViewDataSource {
+extension ChatsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(viewModel.channels.count)
-        return viewModel.channels.count
+        print(viewModel.chats.count)
+        return viewModel.chats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath) as? ChannelCell {
-            cell.nameLabel.text = viewModel.channels[indexPath.row].name
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell {
+            cell.nameLabel.text = viewModel.chats[indexPath.row].name
             return cell
         } else {
             return UITableViewCell()

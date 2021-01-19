@@ -1,5 +1,5 @@
 //
-//  Channel.swift
+//  Chat.swift
 //  ChatApp
 //
 //  Created by Jay Muthialu on 1/17/21.
@@ -8,13 +8,12 @@
 import Foundation
 import Firebase
 
-protocol FirebaseRespresentation {
-    
-    var firRepresentation: [String: Any] { get }
+protocol FirebaseRepresentation {
+    var toFireBaseModel: [String: Any] { get }
 }
 
 
-class Channel {
+class Chat {
     
     var id: String? // This is Firebase ID
     var name = ""
@@ -35,9 +34,9 @@ class Channel {
     
 }
 
-extension Channel: FirebaseRespresentation {
+extension Chat: FirebaseRepresentation {
     
-    var firRepresentation: [String : Any] {
+    var toFireBaseModel: [String : Any] {
         var json = ["name": self.name]
         if let id = self.id {
             json["id"] = id
@@ -47,13 +46,13 @@ extension Channel: FirebaseRespresentation {
     
 }
 
-extension Channel: Comparable {
+extension Chat: Comparable {
     
-    static func == (lhs: Channel, rhs: Channel) -> Bool {
+    static func == (lhs: Chat, rhs: Chat) -> Bool {
         return lhs.id == rhs.id
     }
     
-    static func < (lhs: Channel, rhs: Channel) -> Bool {
+    static func < (lhs: Chat, rhs: Chat) -> Bool {
         return lhs.name < rhs.name
     }
     

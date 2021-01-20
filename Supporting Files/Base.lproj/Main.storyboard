@@ -59,7 +59,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="udm-8T-kYr"/>
-                                    <barButtonItem title="User..." id="Pd6-jJ-Mqh"/>
+                                    <barButtonItem id="Pd6-jJ-Mqh"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -75,9 +75,17 @@
                             <constraint firstItem="Jir-pw-jJf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uCe-aR-T0J"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat App" id="AbW-1V-v0B"/>
+                    <navigationItem key="navigationItem" title="Chat App" id="AbW-1V-v0B">
+                        <barButtonItem key="rightBarButtonItem" title="Logoff" id="ZXA-lD-wuU">
+                            <connections>
+                                <action selector="logAction:" destination="BYZ-38-t0r" id="QBE-ib-cPe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addChatButton" destination="ir2-ch-1u7" id="crf-pX-ykq"/>
                         <outlet property="chatUserBarButton" destination="Pd6-jJ-Mqh" id="reJ-ev-4GU"/>
+                        <outlet property="logActionButton" destination="ZXA-lD-wuU" id="mGY-Z7-mMZ"/>
                         <outlet property="tableView" destination="Jir-pw-jJf" id="lGi-VV-5ip"/>
                     </connections>
                 </viewController>

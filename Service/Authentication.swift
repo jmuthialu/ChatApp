@@ -11,31 +11,52 @@ import FirebaseAuth
 
 class Authentication {
     
+    struct Constants {
+        static let chatUser = "chatUser"
+    }
+    
     static var shared = Authentication()
+    
     @Published var chatUser: ChatUser?
     
     private init() {}
     
-    func signInIfNeeded() {
-        guard let currentUser = Auth.auth().currentUser else {
-            signInAnonymously()
-            return
+    func getChatUserIfLoggedIn() {
+        let defaults = UserDefaults.standard
+        if let data = defaults.object(forKey: Constants.chatUser) as? Data {
+            do {
+                let chatUser = try JSONDecoder().decode(ChatUser.self, from: data)
+                self.chatUser = chatUser
+            } catch {
+                print("chatUser decoding error: \(error)")
+            }
+        } else {
+            chatUser = nil
         }
-        chatUser = ChatUser(firUser: currentUser)
     }
 
-    func signInAnonymously() {
+    func login(userName: String) {
+        let defaults = UserDefaults.standard
         Auth.auth().signInAnonymously { [weak self] (result, error) in
             guard let result = result, error == nil else { return }
-            self?.chatUser = ChatUser(firUser: result.user)
+            let chatUser = ChatUser(userName: userName, userID: result.user.uid)
+            do {
+                let data = try JSONEncoder().encode(chatUser)
+                defaults.set(data, forKey: Constants.chatUser)
+                self?.chatUser = chatUser
+            } catch {
+                print("chatUser encoding error: \(error)")
+            }
         }
     }
     
-    func signOut() {
+    func logoff() {
         do {
             try Auth.auth().signOut()
+            chatUser = nil
+            UserDefaults.standard.removeObject(forKey: Constants.chatUser)
         } catch {
-            print("Signout error: \(error)")
+            print("Logoff error: \(error)")
         }
     
     }

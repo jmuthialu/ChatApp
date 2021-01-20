@@ -7,14 +7,19 @@
 
 import Foundation
 import FirebaseAuth
+import MessageKit
 
-class ChatUser {
-    var userName = ""
-    var firUser: User?
+/// This serves as the user who sends and receives message.
+/// Codable is added so that the object can be store in UserDefaults
+
+class ChatUser: SenderType, Codable {
     
-    init(userName: String? = "Jay", firUser: User?) {
-        self.userName = userName ?? "Nil UserName"
-        self.firUser = firUser
+    var senderId: String
+    var displayName: String
+    
+    init(userName: String, userID: String) {
+        self.senderId = userID 
+        self.displayName = userName
     }
     
 }

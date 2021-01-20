@@ -13,12 +13,16 @@ import FirebaseFirestore
 class ChatsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var logActionButton: UIBarButtonItem!
+    @IBOutlet weak var addChatButton: UIBarButtonItem!
     @IBOutlet weak var chatUserBarButton: UIBarButtonItem!
-        
+    
+    var currentUser: ChatUser?
     var viewModel = ChatsViewModel()
+    var chatAlertController: UIAlertController?
+    var loginAlertController: UIAlertController?
+    
     var cancellables = Set<AnyCancellable>()
-    var channelAlertController: UIAlertController?
-    private var chats = [Chat]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,59 +30,93 @@ class ChatsVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         viewModel.reloadData = { [weak self] in
-            print("reloading data")
+            self?.viewModel.chats.sort()
             self?.tableView.reloadData()
         }
-        
+        viewModel.setupListeners()
+
         let auth = Authentication.shared
         auth.$chatUser
             .sink { [weak self] (chatUser) in
-                self?.chatUserBarButton.title = chatUser?.userName
+                self?.currentUser = chatUser
+                self?.chatUserBarButton.title = chatUser?.displayName
+                self?.updateUIForLogin(chatUser: chatUser)
             }.store(in: &cancellables)
         
-        auth.signInIfNeeded()
-        
+        auth.getChatUserIfLoggedIn()
+        navigationItem.backBarButtonItem = UIBarButtonItem()
     }
     
     @IBAction func addChat(_ sender: Any) {
-        let alert = UIAlertController(title: "Chat", message: "Create a Chat", preferredStyle: UIAlertController.Style.alert)
-        channelAlertController = alert
-        
-        alert.addTextField { (textField) in
-            textField.addTarget(self,
-                                action: #selector(self.textFieldChanged),
-                                for: .editingChanged)
-            textField.enablesReturnKeyAutomatically = true
-            textField.placeholder = "Enter Chat Name"
+        let alert = UIAlertController
+            .getTextViewAlert(title: "Chat",
+                              message: "Create a chat",
+                              target: self,
+                              textFieldChanged: #selector(chatTextFieldChanged))
+            { [weak self] (_) in
+            self?.viewModel.saveChatToFirebase(alert: self?.chatAlertController)
         }
         
-        let createAction = UIAlertAction(title: "Create",
-                                      style: .default,
-                                      handler: { [weak self] _ in
-                                        self?.viewModel.createChat(alert: alert)
-                                      })
-        alert.addAction(createAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        chatAlertController = alert
+        present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction func logAction(_ sender: Any) {
+        if let _ = currentUser {
+            Authentication.shared.logoff()
+        } else {
+            showLoginAlert()
+        }
+    }
+    
+    func showLoginAlert() {
+        let alert = UIAlertController
+            .getTextViewAlert(title: "Login",
+                              message: "Enter user name",
+                              target: self,
+                              textFieldChanged: #selector(loginTextFieldChanged))
+            { [weak self] (_) in
+                self?.viewModel.login(alert: self?.loginAlertController)
+        }
         
-        alert.preferredAction = createAction
+        loginAlertController = alert
         present(alert, animated: true, completion: nil)
         
     }
-    
-    @objc func textFieldChanged(_ field: UITextField) {
-        channelAlertController?.preferredAction?.isEnabled = field.hasText
+    @objc func loginTextFieldChanged(_ field: UITextField) {
+        loginAlertController?.preferredAction?.isEnabled = field.hasText
     }
 
+    @objc func chatTextFieldChanged(_ field: UITextField) {
+        chatAlertController?.preferredAction?.isEnabled = field.hasText
+    }
+    
+    func updateUIForLogin(chatUser: ChatUser?) {
+        if let _ = chatUser { // user logged in
+            logActionButton.title = "Logoff"
+            tableView.isHidden = false
+            addChatButton.isEnabled = true
+        } else {
+            logActionButton.title = "Login"
+            tableView.isHidden = true
+            addChatButton.isEnabled = false
+        }
+    }
+    
 }
 
 extension ChatsVC: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let chat = viewModel.chats[indexPath.row]
+        let vc = ChatMessageVC(currentUser: currentUser, chat: chat)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension ChatsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(viewModel.chats.count)
         return viewModel.chats.count
     }
     

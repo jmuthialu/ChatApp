@@ -20,8 +20,13 @@ class ChatsViewModel {
     }
     private var chatListener: ListenerRegistration?
 
-    init() {
-        chatListener = chatReference.addSnapshotListener({ (snapshot, error) in
+    deinit {
+        chatListener?.remove()
+    }
+    
+    func setupListeners() {
+        chatListener = chatReference.addSnapshotListener{
+            [weak self] (snapshot, error) in
             guard let snapshot = snapshot else {
                 print("Chat snapshot error: \(String(describing: error))")
                 return
@@ -29,7 +34,19 @@ class ChatsViewModel {
             snapshot.documentChanges.forEach { [weak self] (change) in
                 self?.handleDocumentChange(change: change)
             }
-        })
+            self?.reloadData?()
+        }
+    }
+    
+    func saveChatToFirebase(alert: UIAlertController?) {
+        guard let chatName =
+                alert?.textFields?.first?.text else { return }
+        let chat = Chat(name: chatName)
+        chatReference.addDocument(data: chat.toFireBaseModel) { error in
+            if let error = error {
+                print("Error adding chat: \(String(describing: error))")
+            }
+        }
     }
     
     func handleDocumentChange(change: DocumentChange) {
@@ -37,23 +54,14 @@ class ChatsViewModel {
         switch change.type {
         case .added:
             chats.append(chat)
-            chats.sort()
-            reloadData?()
-            print(chats)
         default:
             break
         }
     }
     
-    func createChat(alert: UIAlertController) {
-        guard let chatName =
-                alert.textFields?.first?.text else { return }
-        let chat = Chat(name: chatName)
-        chatReference.addDocument(data: chat.toFireBaseModel) { error in
-            if let error = error {
-                print("Error adding chat: \(String(describing: error))")
-            }
-        }
+    func login(alert: UIAlertController?) {
+        guard let loginName = alert?.textFields?.first?.text else { return }
+        Authentication.shared.login(userName: loginName)
     }
     
 }

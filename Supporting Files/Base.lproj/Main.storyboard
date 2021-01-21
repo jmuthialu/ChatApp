@@ -11,7 +11,7 @@
         <!--MessageGroupsVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="MessageGroupsVC" customClass="MessageGroupsVC" customModule="MessageApp" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="MessageGroupsVC" customClass="MessageGroupsVC" customModule="MessagingApp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="DUF-aE-zXc" customClass="GroupCell" customModule="MessageApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="DUF-aE-zXc" customClass="GroupCell" customModule="MessagingApp">
                                         <rect key="frame" x="0.0" y="28" width="414" height="60.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DUF-aE-zXc" id="bzC-di-wyH">
@@ -53,9 +53,9 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IjG-hL-wbd">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem title="Add Channel" id="ir2-ch-1u7" userLabel="AddChat">
+                                    <barButtonItem title="Create Group" id="ir2-ch-1u7" userLabel="CreateGroup">
                                         <connections>
-                                            <action selector="addChat:" destination="BYZ-38-t0r" id="b1i-az-gW0"/>
+                                            <action selector="createGroup:" destination="BYZ-38-t0r" id="Sra-0i-mWi"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="udm-8T-kYr"/>
@@ -75,7 +75,7 @@
                             <constraint firstItem="Jir-pw-jJf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uCe-aR-T0J"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Message App" id="AbW-1V-v0B">
+                    <navigationItem key="navigationItem" title="Messaging App" id="AbW-1V-v0B">
                         <barButtonItem key="rightBarButtonItem" title="Logoff" id="ZXA-lD-wuU">
                             <connections>
                                 <action selector="logAction:" destination="BYZ-38-t0r" id="QBE-ib-cPe"/>
@@ -83,8 +83,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addChatButton" destination="ir2-ch-1u7" id="crf-pX-ykq"/>
                         <outlet property="chatUserBarButton" destination="Pd6-jJ-Mqh" id="reJ-ev-4GU"/>
+                        <outlet property="createGroup" destination="ir2-ch-1u7" id="fsI-hC-ixo"/>
                         <outlet property="logActionButton" destination="ZXA-lD-wuU" id="mGY-Z7-mMZ"/>
                         <outlet property="tableView" destination="Jir-pw-jJf" id="lGi-VV-5ip"/>
                     </connections>

@@ -1,6 +1,6 @@
 //
 //  ImageMediaItem.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/20/21.
 //

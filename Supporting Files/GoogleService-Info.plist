@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>424871787486-qm6mn640hfi3t3gjlkd2jq7t9kkmvspv.apps.googleusercontent.com</string>
+	<string>270400563732-ivm2p9i26ei1nkqa7hbdg4hhfbm5ehg3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.424871787486-qm6mn640hfi3t3gjlkd2jq7t9kkmvspv</string>
+	<string>com.googleusercontent.apps.270400563732-ivm2p9i26ei1nkqa7hbdg4hhfbm5ehg3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCTiu_VzeComeJ631Z1sHP4b3tvkDyJXrQ</string>
+	<string>AIzaSyAymASo_rt3CsRn7mnL3_ivC3H_M3pg5mg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>424871787486</string>
+	<string>270400563732</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.glintpod.ChatApp</string>
+	<string>com.glintpod.MessagingApp</string>
 	<key>PROJECT_ID</key>
-	<string>jaychatappv2</string>
+	<string>messagingapp-549bc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jaychatappv2.appspot.com</string>
+	<string>messagingapp-549bc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:424871787486:ios:8ad4030d47602d69afbb4f</string>
+	<string>1:270400563732:ios:97087c0283cab465c5d501</string>
 </dict>
 </plist>

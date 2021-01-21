@@ -1,6 +1,6 @@
 //
 //  ChatMessage.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //

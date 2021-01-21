@@ -1,6 +1,6 @@
 //
 //  ChatMessagesVC.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //
@@ -54,6 +54,7 @@ class ChatMessageVC: MessagesViewController {
         messageInputBar.inputTextView.layer.masksToBounds = true
         messageInputBar.sendButton.setTitleColor(.systemBlue, for: .normal)
         
+        // Setup delegates
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self

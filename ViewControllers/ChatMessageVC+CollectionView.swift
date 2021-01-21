@@ -1,6 +1,6 @@
 //
 //  ChatMessageVC+Extension.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //
@@ -103,7 +103,6 @@ extension ChatMessageVC: MessagesDisplayDelegate {
       in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
 
       let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-
       return .bubbleTail(corner, .curved)
     }
 }

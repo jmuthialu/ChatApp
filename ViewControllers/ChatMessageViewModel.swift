@@ -1,6 +1,6 @@
 //
 //  ChatMessageViewModel.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //
@@ -51,8 +51,17 @@ class ChatMessageViewModel {
         }   
     }
     
+    func saveToFirebase(image: UIImage) {
+        uploadImagetoFireStore(image: image) { [weak self] url in
+            guard let currentUser = self?.currentUser else { return }
+            let chatMessage = ChatMessage(chatUser: currentUser, imageURL: url, image: image)
+            self?.saveToFirebase(chatMessage: chatMessage)
+        }
+    }
+    
     func handleDocument(change: DocumentChange) {
         let chatMessage = ChatMessage(document: change.document)
+        
         switch change.type {
         case .added:
             if let imageURLString = chatMessage.imageURL {
@@ -73,17 +82,13 @@ class ChatMessageViewModel {
         }
     }
     
-    func saveToFirebase(image: UIImage) {
-        uploadImagetoFireStore(image: image) { [weak self] url in
-            guard let currentUser = self?.currentUser else { return }
-            let chatMessage = ChatMessage(chatUser: currentUser, imageURL: url, image: image)
-            self?.saveToFirebase(chatMessage: chatMessage)
-        }
-    }
+    // MARK:- Image helpers
     
     func uploadImagetoFireStore(image: UIImage, completion: @escaping (URL) -> Void) {
         guard let groupName = messageGroup?.name,
-              let data = image.jpegData(compressionQuality: 0.4) else { return }
+              let scaledImage = image.compressImage(maxLength: 360.0),
+              let data = scaledImage.jpegData(compressionQuality: 0.4)
+        else { return }
         
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"

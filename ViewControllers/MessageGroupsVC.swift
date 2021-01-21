@@ -1,6 +1,6 @@
 //
 //  MessageGroupsVC.swift
-//  MessageApp
+//  MessagingApp
 //
 //  Created by Jay Muthialu on 1/17/21.
 //
@@ -14,7 +14,7 @@ class MessageGroupsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logActionButton: UIBarButtonItem!
-    @IBOutlet weak var addChatButton: UIBarButtonItem!
+    @IBOutlet weak var createGroup: UIBarButtonItem!
     @IBOutlet weak var chatUserBarButton: UIBarButtonItem!
     
     var currentUser: ChatUser?
@@ -47,7 +47,7 @@ class MessageGroupsVC: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem()
     }
     
-    @IBAction func addChat(_ sender: Any) {
+    @IBAction func createGroup(_ sender: Any) {
         let alert = UIAlertController
             .getTextViewAlert(title: "Message Groups",
                               message: "Create a group",
@@ -95,11 +95,11 @@ class MessageGroupsVC: UIViewController {
         if let _ = chatUser { // user logged in
             logActionButton.title = "Logoff"
             tableView.isHidden = false
-            addChatButton.isEnabled = true
+            createGroup.isEnabled = true
         } else {
             logActionButton.title = "Login"
             tableView.isHidden = true
-            addChatButton.isEnabled = false
+            createGroup.isEnabled = false
         }
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1230"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0D3DCD7DFE449BA3B97B63581F398B94"
-               BuildableName = "Pods_MessageApp.framework"
-               BlueprintName = "Pods-MessageApp"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "B89B7F0925B4AB43008524EF"
+               BuildableName = "MessagingApp.app"
+               BlueprintName = "MessagingApp"
+               ReferencedContainer = "container:MessagingApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -40,6 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B89B7F0925B4AB43008524EF"
+            BuildableName = "MessagingApp.app"
+            BlueprintName = "MessagingApp"
+            ReferencedContainer = "container:MessagingApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,6 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B89B7F0925B4AB43008524EF"
+            BuildableName = "MessagingApp.app"
+            BlueprintName = "MessagingApp"
+            ReferencedContainer = "container:MessagingApp.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

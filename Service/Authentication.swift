@@ -1,6 +1,6 @@
 //
 //  Authentication.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/17/21.
 //
@@ -12,7 +12,7 @@ import FirebaseAuth
 class Authentication {
     
     struct Constants {
-        static let chatUser = "chatUser"
+        static let chatUserKey = "chatUser"
     }
     
     static var shared = Authentication()
@@ -23,7 +23,7 @@ class Authentication {
     
     func getChatUserIfLoggedIn() {
         let defaults = UserDefaults.standard
-        if let data = defaults.object(forKey: Constants.chatUser) as? Data {
+        if let data = defaults.object(forKey: Constants.chatUserKey) as? Data {
             do {
                 let chatUser = try JSONDecoder().decode(ChatUser.self, from: data)
                 self.chatUser = chatUser
@@ -42,7 +42,7 @@ class Authentication {
             let chatUser = ChatUser(userName: userName, userID: result.user.uid)
             do {
                 let data = try JSONEncoder().encode(chatUser)
-                defaults.set(data, forKey: Constants.chatUser)
+                defaults.set(data, forKey: Constants.chatUserKey)
                 self?.chatUser = chatUser
             } catch {
                 print("chatUser encoding error: \(error)")
@@ -54,7 +54,7 @@ class Authentication {
         do {
             try Auth.auth().signOut()
             chatUser = nil
-            UserDefaults.standard.removeObject(forKey: Constants.chatUser)
+            UserDefaults.standard.removeObject(forKey: Constants.chatUserKey)
         } catch {
             print("Logoff error: \(error)")
         }

@@ -1,6 +1,6 @@
 //
-//  ChatsVC.swift
-//  ChatApp
+//  MessageGroupsVC.swift
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/17/21.
 //
@@ -10,7 +10,7 @@ import Combine
 import FirebaseAuth
 import FirebaseFirestore
 
-class ChatsVC: UIViewController {
+class MessageGroupsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logActionButton: UIBarButtonItem!
@@ -18,7 +18,7 @@ class ChatsVC: UIViewController {
     @IBOutlet weak var chatUserBarButton: UIBarButtonItem!
     
     var currentUser: ChatUser?
-    var viewModel = ChatsViewModel()
+    var viewModel = MessageGroupsViewModel()
     var chatAlertController: UIAlertController?
     var loginAlertController: UIAlertController?
     
@@ -30,7 +30,7 @@ class ChatsVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         viewModel.reloadData = { [weak self] in
-            self?.viewModel.chats.sort()
+            self?.viewModel.messageGroups.sort()
             self?.tableView.reloadData()
         }
         viewModel.setupListeners()
@@ -49,8 +49,8 @@ class ChatsVC: UIViewController {
     
     @IBAction func addChat(_ sender: Any) {
         let alert = UIAlertController
-            .getTextViewAlert(title: "Chat",
-                              message: "Create a chat",
+            .getTextViewAlert(title: "Message Groups",
+                              message: "Create a group",
                               target: self,
                               textFieldChanged: #selector(chatTextFieldChanged))
             { [weak self] (_) in
@@ -105,30 +105,31 @@ class ChatsVC: UIViewController {
     
 }
 
-extension ChatsVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let chat = viewModel.chats[indexPath.row]
-        let vc = ChatMessageVC(currentUser: currentUser, chat: chat)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension ChatsVC: UITableViewDataSource {
+extension MessageGroupsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.chats.count
+        return viewModel.messageGroups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell {
-            cell.nameLabel.text = viewModel.chats[indexPath.row].name
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupCell {
+            cell.nameLabel.text = viewModel.messageGroups[indexPath.row].name
             return cell
         } else {
             return UITableViewCell()
         }
     }
 
+}
+
+extension MessageGroupsVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let messageGroup = viewModel.messageGroups[indexPath.row]
+        let vc = ChatMessageVC(currentUser: currentUser, messageGroup: messageGroup)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 

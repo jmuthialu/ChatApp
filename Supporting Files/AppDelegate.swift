@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/17/21.
 //

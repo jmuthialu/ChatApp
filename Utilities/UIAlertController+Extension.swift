@@ -1,6 +1,6 @@
 //
 //  UIAlertController+Extension.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/20/21.
 //

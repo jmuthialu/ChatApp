@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chat App-->
+        <!--MessageGroupsVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ChatsVC" customModule="ChatApp" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="MessageGroupsVC" customClass="MessageGroupsVC" customModule="MessageApp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatCell" id="DUF-aE-zXc" userLabel="ChatCell" customClass="ChatCell" customModule="ChatApp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="DUF-aE-zXc" customClass="GroupCell" customModule="MessageApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="60.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DUF-aE-zXc" id="bzC-di-wyH">
@@ -75,7 +75,7 @@
                             <constraint firstItem="Jir-pw-jJf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uCe-aR-T0J"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat App" id="AbW-1V-v0B">
+                    <navigationItem key="navigationItem" title="Message App" id="AbW-1V-v0B">
                         <barButtonItem key="rightBarButtonItem" title="Logoff" id="ZXA-lD-wuU">
                             <connections>
                                 <action selector="logAction:" destination="BYZ-38-t0r" id="QBE-ib-cPe"/>

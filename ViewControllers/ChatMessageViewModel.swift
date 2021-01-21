@@ -1,6 +1,6 @@
 //
 //  ChatMessageViewModel.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //
@@ -12,7 +12,7 @@ import FirebaseFirestore
 class ChatMessageViewModel {
     
     var currentUser: ChatUser?
-    var chat: Chat?
+    var messageGroup: MessageGroup?
     var chatMessages = [ChatMessage]()
     
     var db = Firestore.firestore()
@@ -27,8 +27,8 @@ class ChatMessageViewModel {
     
     func setupListeners() {
         
-        guard let chatId = chat?.id else { return }
-        let messagePath = ["chats", chatId, "messages"].joined(separator: "/")
+        guard let chatId = messageGroup?.id else { return }
+        let messagePath = ["messageGroups", chatId, "chatMessages"].joined(separator: "/")
         messageReference = db.collection(messagePath)
         
         messageListener = messageReference?.addSnapshotListener {

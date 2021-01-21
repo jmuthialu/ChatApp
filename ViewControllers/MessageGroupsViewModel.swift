@@ -1,6 +1,6 @@
 //
-//  ChatsViewModel.swift
-//  ChatApp
+//  MessageGroupsViewModel.swift
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/17/21.
 //
@@ -9,23 +9,23 @@ import Foundation
 import Combine
 import FirebaseFirestore
 
-class ChatsViewModel {
+class MessageGroupsViewModel {
     
-    var chats = [Chat]()
+    var messageGroups = [MessageGroup]()
     var reloadData: (() -> Void)?
     
     let db = Firestore.firestore()
-    private var chatReference: CollectionReference {
-        return db.collection("chats")
+    private var messageGroupReference: CollectionReference {
+        return db.collection("messageGroups")
     }
-    private var chatListener: ListenerRegistration?
+    private var messageGroupListener: ListenerRegistration?
 
     deinit {
-        chatListener?.remove()
+        messageGroupListener?.remove()
     }
     
     func setupListeners() {
-        chatListener = chatReference.addSnapshotListener{
+        messageGroupListener = messageGroupReference.addSnapshotListener{
             [weak self] (snapshot, error) in
             guard let snapshot = snapshot else {
                 print("Chat snapshot error: \(String(describing: error))")
@@ -39,10 +39,10 @@ class ChatsViewModel {
     }
     
     func saveChatToFirebase(alert: UIAlertController?) {
-        guard let chatName =
+        guard let groupName =
                 alert?.textFields?.first?.text else { return }
-        let chat = Chat(name: chatName)
-        chatReference.addDocument(data: chat.toFireBaseModel) { error in
+        let group = MessageGroup(name: groupName)
+        messageGroupReference.addDocument(data: group.toFireBaseModel) { error in
             if let error = error {
                 print("Error adding chat: \(String(describing: error))")
             }
@@ -50,10 +50,10 @@ class ChatsViewModel {
     }
     
     func handleDocumentChange(change: DocumentChange) {
-        let chat = Chat(document: change.document)
+        let messageGroup = MessageGroup(document: change.document)
         switch change.type {
         case .added:
-            chats.append(chat)
+            messageGroups.append(messageGroup)
         default:
             break
         }
@@ -65,3 +65,4 @@ class ChatsViewModel {
     }
     
 }
+

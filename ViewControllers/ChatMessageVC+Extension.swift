@@ -1,6 +1,6 @@
 //
 //  ChatMessageVC+Extension.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //

@@ -1,6 +1,6 @@
 //
 //  ChatMessagesVC.swift
-//  ChatApp
+//  MessageApp
 //
 //  Created by Jay Muthialu on 1/19/21.
 //
@@ -16,9 +16,9 @@ class ChatMessageVC: MessagesViewController {
     
     var viewModel = ChatMessageViewModel()
     
-    init(currentUser: ChatUser?, chat: Chat?) {
+    init(currentUser: ChatUser?, messageGroup: MessageGroup?) {
         viewModel.currentUser = currentUser
-        viewModel.chat = chat
+        viewModel.messageGroup = messageGroup
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,19 +36,25 @@ class ChatMessageVC: MessagesViewController {
             self?.messagesCollectionView.scrollToBottom(animated: true)
         }
         viewModel.setupListeners()
-        setupMessageView()
-        if let chatName = viewModel.chat?.name {
+        configureMessageView()
+        if let chatName = viewModel.messageGroup?.name {
             navigationItem.title = chatName
         }
     }
     
-    func setupMessageView() {
+    func configureMessageView() {
         maintainPositionOnKeyboardFrameChanged = true
         
         messageInputBar.inputTextView.tintColor = .label
         messageInputBar.sendButton.setTitleColor(.label, for: .normal)
-        messageInputBar.delegate = self
+        messageInputBar.separatorLine.isHidden = false
+        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
+        messageInputBar.inputTextView.layer.borderWidth = 1.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
+        messageInputBar.inputTextView.layer.masksToBounds = true
+        messageInputBar.sendButton.setTitleColor(.systemBlue, for: .normal)
         
+        messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -63,7 +69,6 @@ class ChatMessageVC: MessagesViewController {
 
         layout?.setMessageOutgoingAvatarSize(.zero)
         layout?.setMessageIncomingAvatarSize(.zero)
-
     }
 }
 

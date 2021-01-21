@@ -69,7 +69,35 @@ class ChatMessageVC: MessagesViewController {
 
         layout?.setMessageOutgoingAvatarSize(.zero)
         layout?.setMessageIncomingAvatarSize(.zero)
+        
+        // Adding camera button
+        let cameraItem = InputBarButtonItem(type: .system)
+        cameraItem.tintColor = .darkGray
+        cameraItem.image = UIImage(systemName: "camera.on.rectangle.fill")
+        cameraItem.addTarget(
+          self,
+          action: #selector(cameraButtonPressed),
+          for: .primaryActionTriggered
+        )
+        cameraItem.setSize(CGSize(width: 60, height: 30), animated: false)
+
+        messageInputBar.leftStackView.alignment = .center
+        messageInputBar.setLeftStackViewWidthConstant(to: 60, animated: false)
+        messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false)
+
+    }
+    
+    @objc func cameraButtonPressed() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            picker.sourceType = .camera
+        } else {
+            picker.sourceType = .photoLibrary // Sim does not have camera so open photos
+        }
+        present(picker, animated: true, completion: nil)
     }
 }
+
 
 

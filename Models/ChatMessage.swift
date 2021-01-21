@@ -15,11 +15,20 @@ class ChatMessage: MessageType {
     var messageId: String = ""
     var sentDate = Date()
     var kind: MessageKind
+    var imageURL: String?
     
     init(chatUser: ChatUser, content: String) {
         self.sender = chatUser
         self.messageId = UUID().uuidString
         self.kind = .text(content)
+    }
+    
+    init(chatUser: ChatUser, imageURL: URL, image: UIImage) {
+        self.sender = chatUser
+        self.messageId = UUID().uuidString
+        let imageMediaItem = ImageMediaItem(url: imageURL, image: image)
+        self.kind = .photo(imageMediaItem)
+        self.imageURL = imageURL.absoluteString
     }
     
     init(document: QueryDocumentSnapshot) {
@@ -33,7 +42,15 @@ class ChatMessage: MessageType {
         if let timeStamp = data["sentDate"] as? Timestamp {
             self.sentDate = timeStamp.dateValue()
         }
-        self.kind = .text(data["content"] as? String ?? "Nil content")
+        if let url = data["url"] as? String {
+            self.imageURL = url
+            // This is dummy .photo object which will be fixed in handleDocument()
+            self.kind = .photo(ImageMediaItem())
+        } else if let content = data["content"] as? String {
+            self.kind = .text(content)
+        } else {
+            self.kind = .text("Error at ChatMessage Snapshot")
+        }
     }
 }
 
@@ -45,8 +62,16 @@ extension ChatMessage: FirebaseRepresentation {
         json["senderName"] = self.sender.displayName
         json["messageId"] = self.messageId
         json["sentDate"] = self.sentDate
-        if case let .text(content) = self.kind {
+        
+        switch self.kind {
+        case let .text(content):
             json["content"] = content
+        case let .photo(imageMedaItem):
+            if let urlString = imageMedaItem.url?.absoluteString {
+                json["url"] = urlString
+            }
+        default:
+            break
         }
         return json
     }

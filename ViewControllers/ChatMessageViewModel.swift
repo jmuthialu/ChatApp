@@ -14,21 +14,27 @@ class ChatMessageViewModel {
     var currentUser: ChatUser?
     var messageGroup: MessageGroup?
     var chatMessages = [ChatMessage]()
+    @Published var chatBubble = ChatBubble()
     
     var db = Firestore.firestore()
     var messageReference: CollectionReference?
     var messageListener: ListenerRegistration?
+    var bubbleReference: DocumentReference?
+    var bubbleListener: ListenerRegistration?
     var storageRootReference = Storage.storage().reference()
     
     var reloadData: (() -> Void)?
     
     deinit {
         messageListener?.remove()
+        bubbleListener?.remove()
     }
     
     func setupListeners() {
-        guard let chatId = messageGroup?.id else { return }
-        let messagePath = ["messageGroups", chatId, "chatMessages"].joined(separator: "/")
+        
+        // Chat Message Listeners
+        guard let groupId = messageGroup?.id else { return }
+        let messagePath = ["messageGroups", groupId, "chatMessages"].joined(separator: "/")
         messageReference = db.collection(messagePath)
         
         messageListener = messageReference?.addSnapshotListener {
@@ -38,10 +44,21 @@ class ChatMessageViewModel {
             snapShot.documentChanges.forEach { (documentChange) in
                 self?.handleDocument(change: documentChange)
             }
-            
         }
         
+        // Chat bubble Listeners
+        bubbleReference = db.collection("messageGroups").document("bubbleState")
+        bubbleListener = bubbleReference?.addSnapshotListener {
+            [weak self] (snapShot, error) in
+            guard let snapShot = snapShot, error == nil else {
+                print("Error updating bubble state: \(String(describing: error))")
+                return
+            }
+            self?.chatBubble = ChatBubble(document: snapShot)
+        }
     }
+    
+    // MARK:- Firebase methods
     
     func saveToFirebase(chatMessage: ChatMessage) {
         messageReference?.addDocument(data: chatMessage.toFireBaseModel) { error in
@@ -56,6 +73,26 @@ class ChatMessageViewModel {
             guard let currentUser = self?.currentUser else { return }
             let chatMessage = ChatMessage(chatUser: currentUser, imageURL: url, image: image)
             self?.saveToFirebase(chatMessage: chatMessage)
+        }
+    }
+    
+    /// Initial bubble state which is set to false
+    func setBubbleStateInFirebase() {
+        bubbleReference?.setData(chatBubble.toFireBaseModel) { error in
+            if let error = error {
+                print("Error setting bubble data: \(error)")
+            }
+        }
+    }
+    
+    // Updates when a user types text in send text box
+    func updateBubbleState(state: Bool) {
+        guard let senderid = currentUser?.senderId else { return }
+        let chatBubble = ChatBubble(senderId: senderid, state: state)
+        bubbleReference?.updateData(chatBubble.toFireBaseModel) { error in
+            if let error = error {
+                print("Error updating bubble: \(error)")
+            }
         }
     }
     
@@ -82,7 +119,7 @@ class ChatMessageViewModel {
         }
     }
     
-    // MARK:- Image helpers
+    // MARK:- Firebase Image helpers
     
     func uploadImagetoFireStore(image: UIImage, completion: @escaping (URL) -> Void) {
         guard let groupName = messageGroup?.name,

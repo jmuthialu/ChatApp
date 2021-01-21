@@ -12,6 +12,8 @@ extension ChatMessageVC: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
+        viewModel.updateBubbleState(state: false)
+        
         if let image = info[.originalImage] as? UIImage {
             viewModel.saveToFirebase(image: image)
         }
@@ -19,5 +21,6 @@ extension ChatMessageVC: UIImagePickerControllerDelegate, UINavigationController
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+        viewModel.updateBubbleState(state: false)
     }
 }

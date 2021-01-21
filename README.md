@@ -1,7 +1,11 @@
 #  Messaging App
 
+<p align="center">
+  <img src="MessagingApp.gif" alt="animated" />
+</p>
+
 ## Purpose
-Example app to show how to build chat functionality. 
+Example app to show how to build basic chat functionality. 
 
 ## Dependencies
 - Cloud Firestore to store message groups / messages and handle snapshot diffs.
@@ -9,10 +13,15 @@ Example app to show how to build chat functionality.
 - Firebase Authentication to login users.
 - MessageKit to render chat style UI.
 
+## Dev Tools
+- Xcode 12.3
+- Swift 5.3.2
+- Cocoapod 1.10.0
+
 ## Firebase Configuration
 - Create a Firebase project in Firebase portal. 
-- Create an iOS App and associate to this project. 
-- Drag the GoogleService-Info.plist and add to the iOS project.
+- Create an iOS App for this project. 
+- Download GoogleService-Info.plist from Firebase portal and add to the iOS project.
 - Allow anonymous authentication in Firebase.
 - Provision Cloud Firestore and Storage.
 

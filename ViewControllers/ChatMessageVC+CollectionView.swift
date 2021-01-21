@@ -9,9 +9,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import MessageKit
-// Part of MessageKit
 import InputBarAccessoryView
-
 
 extension ChatMessageVC: InputBarAccessoryViewDelegate {
     
@@ -22,6 +20,27 @@ extension ChatMessageVC: InputBarAccessoryViewDelegate {
         let chatMessage = ChatMessage(chatUser: currentUser, content: text)
         viewModel.saveToFirebase(chatMessage: chatMessage)
         inputBar.inputTextView.text = ""
+    }
+    
+    func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
+        text.count > 0 ? viewModel.updateBubbleState(state: true):
+            viewModel.updateBubbleState(state: false)
+    }
+    
+    func setTypingIndicatorViewHidden(chatBubble: ChatBubble) {
+        guard let currentUserId = viewModel.currentUser?.senderId else { return }
+        
+        if chatBubble.senderId != currentUserId {
+            setTypingIndicatorViewHidden(!chatBubble.state,
+                                         animated: true,
+                                         whilePerforming: nil)
+            { [weak self] success in
+                if success {
+                    // Without this chat bubble will not be visible
+                    self?.messagesCollectionView.scrollToLastItem(animated: true)
+                }
+            }
+        }
     }
 }
 
@@ -104,5 +123,14 @@ extension ChatMessageVC: MessagesDisplayDelegate {
 
       let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
       return .bubbleTail(corner, .curved)
+    }
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        guard let currentUser = viewModel.currentUser else { return  UIColor.systemGray }
+        if message.sender.senderId == currentUser.senderId {
+            return UIColor.systemBlue
+        } else {
+            return UIColor.tertiarySystemBackground
+        }
     }
 }

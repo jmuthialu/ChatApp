@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import Firebase
 import FirebaseFirestore
 import MessageKit
@@ -15,6 +16,7 @@ import InputBarAccessoryView
 class ChatMessageVC: MessagesViewController {
     
     var viewModel = ChatMessageViewModel()
+    var cancellables = Set<AnyCancellable>()
     
     init(currentUser: ChatUser?, messageGroup: MessageGroup?) {
         viewModel.currentUser = currentUser
@@ -35,7 +37,14 @@ class ChatMessageVC: MessagesViewController {
             self?.messagesCollectionView.reloadData()
             self?.messagesCollectionView.scrollToBottom(animated: true)
         }
+        
+        viewModel.$chatBubble
+            .sink { [weak self] (chatBubble) in
+                self?.setTypingIndicatorViewHidden(chatBubble: chatBubble)
+            }.store(in: &cancellables)
+        
         viewModel.setupListeners()
+        viewModel.setBubbleStateInFirebase()
         configureMessageView()
         if let chatName = viewModel.messageGroup?.name {
             navigationItem.title = chatName
@@ -96,6 +105,7 @@ class ChatMessageVC: MessagesViewController {
         } else {
             picker.sourceType = .photoLibrary // Sim does not have camera so open photos
         }
+        viewModel.updateBubbleState(state: true)
         present(picker, animated: true, completion: nil)
     }
 }
